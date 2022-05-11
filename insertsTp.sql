@@ -3,7 +3,7 @@ USE tpVentas;
 INSERT INTO cliente VALUES (123, 234, 'pinyero', 'enrique'),
 						   (456, 245, 'martinez', 'gonzalo'),
                            (789, 478, 'fica', 'enzo');
-INSERT INTO cliente VALUES (420, 305, 'hernandez', 'sofia');                          
+INSERT INTO cliente VALUES (420, 305, 'hernandez', 'sofia');
                            
 INSERT INTO factura VALUES (1030, 123, '2020-10-20', 10),
 						   (1031, 456, '2021-09-15', 11),
@@ -28,15 +28,15 @@ INSERT INTO factura_producto VALUES (1030, 1223, 5),
 INSERT INTO factura_producto VALUES (1032, 1223, 1);
 
 -- 3
-SELECT codigo, apellido, nombre, numero, fecha
-FROM cliente INNER JOIN factura;
+-- SELECT codigo, apellido, nombre, numero, fecha
+-- FROM cliente INNER JOIN factura;
 
 /*4. Realizar una consulta que detalle el historial de precios de un producto en particular
 identificado por código.*/
-SELECT monto, fecha, codigo
-FROM producto 
-INNER JOIN precio
-WHERE producto.id_producto = precio.id_producto AND codigo = 'PUT';
+-- SELECT monto, fecha, codigo
+-- FROM producto 
+-- INNER JOIN precio
+-- WHERE producto.id_producto = precio.id_producto AND codigo = 'PUT';
 
 /*5. Realizar una consulta que retorne la cantidad total de ventas de cada producto
 ordenado de mayor a menor.*/
@@ -77,3 +77,60 @@ LEFT JOIN factura
 ON cliente.id_cliente = factura.id_cliente
 GROUP BY cliente.id_cliente
 ORDER BY cantTotal DESC; 
+
+-- 8. Realizar una vista llamada compras que retorne código, apellido y nombre del cliente,
+-- número y fecha de todas las facturas, código, descripción, precio unitario, cantidad y
+-- precio total de los productos incluidos en cada factura.
+CREATE or replace VIEW view_compras 
+AS SELECT cliente.codigo as cliente_codigo, apellido, nombre, numero, factura.fecha, producto.codigo, descripcion, monto, (monto * cantidad) AS precio_total
+FROM cliente
+INNER JOIN factura 
+INNER JOIN precio
+INNER JOIN producto
+INNER JOIN factura_producto
+ON cliente.id_cliente = factura.id_cliente
+AND factura.id_factura = factura_producto.id_factura
+AND factura_producto.id_producto = producto.id_producto
+AND producto.id_precio = precio.id_precio 
+GROUP BY (cliente_codigo);
+
+-- 9. Realizar una consulta sobre la vista compras para un cliente en particular identificado por código.
+
+SELECT * 
+FROM view_compras
+WHERE cliente_codigo = 478;
+
+SELECT apellido
+FROM view_compras
+WHERE apellido LIKE '%ica%';
+
+SELECT * FROM cliente;
+SELECT * FROM precio;
+SELECT * FROM producto;
+DELETE FROM precio WHERE (id_precio = 1000);
+
+-- 14
+DELIMITER $$
+CREATE PROCEDURE nueva_factura
+(IN codigo_cliente INT, IN fecha_de_compra DATETIME, IN numero int, out id_out int)
+BEGIN
+declare exit handler for sqlexception rollback;
+	start transaction;
+INSERT INTO factura (id_cliente, fecha, numero) 
+VALUES (codigo_cliente, fecha_de_compra, numero);
+set id_out = last_insert_id();
+commit;
+END $$
+
+DELIMITER $$
+create procedure nueva_factura_producto
+(IN p_id_de_factura INT, IN p_codigo_de_producto INT, IN p_cantidad_comprada INT)
+begin
+  declare exit handler for sqlexception rollback;
+  start transaction;
+    insert into factura_producto (id_factura, id_producto, cantidad) values (p_id_de_factura, p_codigo_de_producto, p_cantidad_comprada);
+  commit;
+end $$
+
+select *from factura;
+
