@@ -3,14 +3,19 @@ package ar.com.ciu.hibernate.model;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity(name = "Precio")
+@Table(name = "precio")
 public class Precio {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
@@ -19,9 +24,9 @@ public class Precio {
 	private double monto;
 	@Column
 	private Date fecha;
-	@Column
-	@OneToOne
-	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_id_fk"))
+
+	@OneToOne(mappedBy="precio", cascade=CascadeType.ALL)
+
 	private Producto producto;
 
 	public Precio() {

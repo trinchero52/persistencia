@@ -1,6 +1,5 @@
 package ar.com.ciu.hibernate.run;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -14,6 +13,7 @@ import ar.com.ciu.hibernate.model.Producto;
 import ar.com.ciu.hibernate.model.Proveedor;
 
 public class MainEjercicio5 {
+	
 	
 	public static void main(String[] args) {
 		
@@ -29,14 +29,17 @@ public class MainEjercicio5 {
 		Producto producto2 = new Producto("90", "moto");
 		producto2.getProveedores().add(proveedor1);
 		producto2.getProveedores().add(proveedor2);
-		Date fecha1 = new Date();
-		Precio precio1 = new Precio(120.0, fecha1);
-		//producto1.setP
-		Factura factura1 = new Factura(fecha1, 1);
+		//Date fecha1 = new Date();
+		Precio precio1 = new Precio(120.0, new Date(10052022));
+		Precio precio2 = new Precio(150.0, new Date(20052023));
+		producto1.setPrecio(precio1);
+		Factura factura1 = new Factura(new Date(10052022), 1);
+		factura1.setCliente(cliente3);
 		Detalle detalle1 = new Detalle(5);
+		detalle1.setFactura(factura1);
+		detalle1.setProducto(producto2);
 		
-		
-		
+		producto1.cargarPrecio(precio2);
 		/*6) Realizar un método que de alta a un Proveedor, sin asignar productos al mismo, crear
 		más de un proveedor*/
 		
@@ -49,6 +52,14 @@ public class MainEjercicio5 {
 			session.persist(cliente2);
 			session.persist(cliente3);
 			session.persist(cuenta1);
+			session.persist(proveedor1);
+			session.persist(proveedor2);
+			session.persist(producto1);
+			session.persist(producto2);
+			session.persist(precio1);
+			session.persist(precio2);
+			session.persist(factura1);
+			session.persist(detalle1);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

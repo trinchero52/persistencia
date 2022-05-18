@@ -7,55 +7,19 @@
 
 	<session-factory>
 	<property name="hbm2ddl.auto">create</property>
-		<!-- ><property name="hbm2ddl.auto">create</property>
-		property name="hbm2ddl.auto">none</property> -->
+
 		
 		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 		
-		<!-- mapeo de entidades -->
 		
-		<!-- many to one -->
-		 <!--
-		<mapping class="ar.com.ciu.model.manyToOne.Equipo" />
-		<mapping class="ar.com.ciu.model.manyToOne.Provincia" /> -->
-		<!-- one to many unidirectional -->
+		<mapping class="ar.com.ciu.hibernate.model.Cliente" />
+		<mapping class="ar.com.ciu.hibernate.model.Cuenta" />
+		<mapping class="ar.com.ciu.hibernate.model.Detalle" />
+		<mapping class="ar.com.ciu.hibernate.model.Factura" />
+		<mapping class="ar.com.ciu.hibernate.model.Precio" />
+		<mapping class="ar.com.ciu.hibernate.model.Producto" />
+		<mapping class="ar.com.ciu.hibernate.model.Proveedor" />
 		
-		<!--
-		<mapping class="ar.com.ciu.model.oneToMany.unidirectional.Articulo" />
-		<mapping class="ar.com.ciu.model.oneToMany.unidirectional.Comentario" />   -->
-
-
-		<!-- one to many bidirectional -->
-		<!--  
-		<mapping class="ar.com.ciu.model.oneToMany.bidirectional.Persona" />
-		<mapping class="ar.com.ciu.model.oneToMany.bidirectional.Telefono" />
-		-->
-	
-
-		<!-- one to one unidirectional -->
-	<!--  
-		<mapping class="ar.com.ciu.model.oneToOne.unidirectional.Auto" />
-		<mapping class="ar.com.ciu.model.oneToOne.unidirectional.DetalleAuto" />
-	-->
-
-		<!-- one to one bidirectional -->
-		<!--  
-		<mapping class="ar.com.ciu.model.oneToOne.bidirectional.Telefono" />
-		<mapping class="ar.com.ciu.model.oneToOne.bidirectional.Linea" />
-	-->
-
-		<!-- many to many unidirectional -->
-		<!-- 
-		<mapping class="ar.com.ciu.model.manyToMany.unidirectional.Palabra" />
-		<mapping class="ar.com.ciu.model.manyToMany.unidirectional.Letra" />
-		--> 
-
-		<!-- many to many bidirectional -->
-	
-		<!-- <mapping class="ar.com.ciu.model.manyToMany.bidirectional.Ingrediente" />
-		<mapping class="ar.com.ciu.model.manyToMany.bidirectional.Receta" /> -->
-		
-
 	</session-factory>
 
 </hibernate-configuration>

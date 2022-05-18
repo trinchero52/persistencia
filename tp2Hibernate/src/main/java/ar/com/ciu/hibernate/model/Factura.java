@@ -24,7 +24,7 @@ public class Factura {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
 	private Long id;
-	@Column
+	//@Column
 	@ManyToOne
 	@JoinColumn(name="cliente_id", foreignKey=@ForeignKey(name="factura_id_fk"))
 	private Cliente cliente;

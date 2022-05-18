@@ -20,17 +20,17 @@ public class Detalle {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
 	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name = "factura_id", foreignKey=@ForeignKey(name="detalle_factura_id_fk"))
-	@Column
 	private Factura factura;
-	@Column
+	//@Column
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "producto_id")
 	private Producto producto;
 	@Column
 	private int Cantidad;
-	@Column
+	
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "precio_id")
 	private Precio precio;
