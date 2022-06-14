@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+	<property name="hbm2ddl.auto">create</property>
+
+		
+		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+		
+		
+		<mapping class="ar.com.ciu.model.Cliente" />
+		<mapping class="ar.com.ciu.model.Cuenta" />
+		<mapping class="ar.com.ciu.model.Detalle" />
+		<mapping class="ar.com.ciu.model.Factura" />
+		<mapping class="ar.com.ciu.model.Precio" />
+		<mapping class="ar.com.ciu.model.Producto" />
+		<mapping class="ar.com.ciu.model.Proveedor" />
+		<mapping class="ar.com.ciu.model.Alimento" />
+		<mapping class="ar.com.ciu.model.Congelado" />
+		<mapping class="ar.com.ciu.model.Frio" />
+		<mapping class="ar.com.ciu.model.General" />
+		<mapping class="ar.com.ciu.model.Gondola" />
+		
+		
+	</session-factory>
+
+</hibernate-configuration>
